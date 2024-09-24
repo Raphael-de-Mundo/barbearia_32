@@ -21,7 +21,7 @@ and open the template in the editor.
 
         <!-- CORPO DA PÁGINA -->
 
-        <form name="formAtendimento" action="" method="post">
+        <form name="formAtendimento" action="atendimento_salvar.php" method="post">
             <div id="body">
 
                 <h1><span>Agendar atendimento</span></h1>
@@ -34,7 +34,18 @@ and open the template in the editor.
 
                     <li>Selecione o seu serviço <br />
                         <select name="selectServico" class="input">
-                            <option></option>
+                            <?php 
+                            include_once "conexao_bd.php";
+                            $sql="SELECT * FROM servicos ORDER BY descricao";
+                            $resultado = retornarDados($sql);
+                            while($linha= mysqli_fetch_assoc($resultado))
+                            {?>
+                            <option value="<?php echo $linha["id_servico"]?>">
+                                <?php echo $linha["descricao"] ?> 
+                            </option>
+                            <?php
+                            }
+                            ?>
                         </select>
                     </li>
 
