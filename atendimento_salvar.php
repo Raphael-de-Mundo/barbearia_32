@@ -23,7 +23,25 @@ and open the template in the editor.
 
         <form name="formServico" action="" method="post">
             <div id="body">
-
+            <?php
+            // 1 passo incluir as configurações do acesso a dados
+            include "conexao_bd.php";
+            //2 Passo capturar  os valores informados pelo usuario
+            $nome_cliente =$_POST["txtNome"];
+            $id_servico = $_POST["selectServico"];
+            $data_agendamento = $_POST["txtData"];
+            $horario = $_POST["selectHorario"];
+            //3 passo montar o comando sql para inserir o agendamento
+            $sql= "INSERT INTO agendamento(nome_cliente,id_servico,data_agendamento,horario) ";
+            $sql.=" VALUES('$nome_cliente','$id_servico','$data_agendamento','$horario') ";
+            //4 passo executar o comando sql
+            if (executarComando ($sql)){
+                echo "<h2>Servico agendado!</h2>";
+            }
+            else{
+                echo "<h2>Não foi possivel agendar!</h2>";
+            }
+            ?>
                 
             </div>
         </form>
